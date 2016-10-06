@@ -30,7 +30,6 @@ public class CallEJB {
 
         String name1 = "ejb:EJBTest/ejb/StatelessSessionRemoteBean!ch.brj.ejb.StatelessSessionRemote";
 
-
         Context ctx = new InitialContext(env);
         StatelessSessionRemote bean = (StatelessSessionRemote) ctx.lookup(name1);
         String message = bean.greeting("Client");
