@@ -21,7 +21,7 @@ public class QueueBean implements MessageListener {
             System.out.println("*** QueueBean message received: " + rcvMessage);
             if (rcvMessage instanceof TextMessage) {
                 msg = (TextMessage) rcvMessage;
-                System.out.println("*** Received Message from queue: '" + msg.getText() + "'");
+                System.out.println("*** Received Message from queue: >" + msg.getText() + "<");
             }
         } catch (JMSException e) {
             throw new RuntimeException(e);

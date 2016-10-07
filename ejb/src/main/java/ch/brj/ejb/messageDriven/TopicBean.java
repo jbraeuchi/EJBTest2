@@ -21,7 +21,7 @@ public class TopicBean implements MessageListener {
             System.out.println("*** TopicBean message received: " + rcvMessage);
             if (rcvMessage instanceof TextMessage) {
                 msg = (TextMessage) rcvMessage;
-                System.out.println("*** Received Message from topic: '" + msg.getText() + "'");
+                System.out.println("*** Received Message from topic: >" + msg.getText() + "<");
             }
         } catch (JMSException e) {
             throw new RuntimeException(e);
