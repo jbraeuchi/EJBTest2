@@ -28,5 +28,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="JBoss 10.0.10.Final" level="application_server_libraries" />
     <orderEntry type="module" module-name="ejb" exported="" />
+    <orderEntry type="library" name="jboss-client" level="project" />
   </component>
 </module>

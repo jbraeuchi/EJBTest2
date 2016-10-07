@@ -15,5 +15,10 @@
   <p>
     <a href="http://localhost:8080/EJBTestWeb/test.do">http://localhost:8080/EJBTestWeb/test.do</a>
   </p>
+
+  <p>
+    <a href="http://localhost:8080/EJBTestWeb/mdb.do?topic">http://localhost:8080/EJBTestWeb/mdb.do</a>
+  </p>
+
   </body>
 </html>
