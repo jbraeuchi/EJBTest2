@@ -9,7 +9,7 @@ import java.util.Date;
 
 
 @Stateless
-@Remote
+@Remote(StatelessSessionRemote.class)
 public class StatelessSessionRemoteBean implements StatelessSessionRemote {
 
     @PostConstruct
@@ -35,8 +35,4 @@ public class StatelessSessionRemoteBean implements StatelessSessionRemote {
         return theMessage;
     }
 
-    @Schedule(hour = "*", minute = "*")
-    public void timer() {
-        System.out.println("*** Timer fired ");
-    }
 }
