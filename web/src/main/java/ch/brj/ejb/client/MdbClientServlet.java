@@ -44,10 +44,9 @@ public class MdbClientServlet extends HttpServlet {
                 destination = queue;
             }
             out.println("Sending messages to " + destination);
-            String text = "This is the message.";
+            String text = "This is the message " + System.currentTimeMillis();
             context.createProducer().send(destination, text);
             out.println("Message: " + text);
-            out.println("Go to your WildFly Server console or Server log to see the result of messages processing");
         }catch (Exception e) {
             out.println(e);
         } finally {
