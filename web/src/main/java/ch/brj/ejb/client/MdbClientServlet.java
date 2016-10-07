@@ -3,10 +3,7 @@ package ch.brj.ejb.client;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.jms.Destination;
-import javax.jms.JMSContext;
-import javax.jms.Queue;
-import javax.jms.Topic;
+import javax.jms.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +14,7 @@ import java.io.PrintWriter;
 
 /**
  * Add the following lines to <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
- *
+ * <p>
  * <jms-queue name="testQueue" entries="jms/queue/test java:jboss/exported/jms/queue/test"/>
  * <jms-topic name="testTopic" entries="jms/topic/test java:jboss/exported/jms/topic/test"/>
  */
@@ -25,6 +22,9 @@ import java.io.PrintWriter;
 public class MdbClientServlet extends HttpServlet {
     @Inject
     private JMSContext context;
+
+    @Resource(mappedName = "java:/ConnectionFactory")
+    private ConnectionFactory connectionFactory;
 
     @Resource(mappedName = "java:/jms/queue/test")
     private Queue queue;
@@ -52,10 +52,26 @@ public class MdbClientServlet extends HttpServlet {
             if (destination != null) {
                 out.println("Sending messages to " + destination);
                 String text = "This is the message '" + param + "' " + System.currentTimeMillis();
-                context.createProducer().send(destination, text);
                 out.println("Message: " + text);
+
+                sendWithContext(destination, text);
+//                sendWithConnectionFactory(destination, text);
             }
         }
     }
 
+    private void sendWithContext(Destination dest, String msg) {
+        context.createProducer().send(dest, msg);
+    }
+
+    private void sendWithConnectionFactory(Destination dest, String msg) {
+        try {
+            Connection connection = connectionFactory.createConnection();
+            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            TextMessage message = session.createTextMessage(msg);
+            session.createProducer(dest).send(message);
+        } catch (JMSException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
