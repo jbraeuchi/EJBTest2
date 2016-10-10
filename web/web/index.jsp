@@ -27,5 +27,9 @@
     <a href="http://localhost:8080/EJBTestWeb/multi.do">http://localhost:8080/EJBTestWeb/multi.do</a>
   </p>
 
+  <p>
+    <a href="http://localhost:8080/EJBTestWeb/intercept.do">http://localhost:8080/EJBTestWeb/intercept.do</a>
+  </p>
+
   </body>
 </html>
