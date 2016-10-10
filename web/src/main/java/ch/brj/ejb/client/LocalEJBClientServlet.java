@@ -39,7 +39,7 @@ public class LocalEJBClientServlet extends HttpServlet {
     private SingletonBean mSingleton;
 
     @PostConstruct
-    public void initialize() {
+    private void initialize() {
         try {
             InitialContext theInitialContext = new InitialContext();
             slBean = (StatelessSessionRemote) theInitialContext.lookup("java:app/ejb/StatelessSessionRemoteBean");

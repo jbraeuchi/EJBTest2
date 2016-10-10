@@ -13,12 +13,12 @@ import java.util.Date;
 public class StatelessSessionRemoteBean implements StatelessSessionRemote {
 
     @PostConstruct
-    public void initialize() {
+    void initialize() {
         System.out.println("*** StatelessSessionRemoteBean created.");
     }
 
     @PreDestroy
-    public void destroy() {
+    void destroy() {
         System.out.println("*** StatelessSessionRemoteBean destroyed.");
     }
 

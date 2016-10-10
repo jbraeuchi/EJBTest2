@@ -16,8 +16,8 @@ public class StatefulSession1Bean {
     private static int sCurrentInstanceNumber = 1;
     private int mInstanceNumber;
 
-    @PostConstruct
-    public void initialize() {
+    @PostConstruct  // PRIVATE
+    private void initialize() {
         mInstanceNumber = sCurrentInstanceNumber++;
         System.out.println("*** StatefulSession1Bean " + mInstanceNumber +
                 " created.");

@@ -1,8 +1,8 @@
 package ch.brj.ejb.singleton;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
-import java.util.Date;
 
 /**
  * Created by jakob on 07.10.2016.
@@ -11,6 +11,11 @@ import java.util.Date;
 @LocalBean
 public class SingletonBean {
     int counter;
+
+    @PostConstruct  // Protected
+    protected void initialize() {
+        System.out.println("*** SingletonBean created.");
+    }
 
     public String greeting(final String inName) {
         counter++;
