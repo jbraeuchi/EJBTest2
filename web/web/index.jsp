@@ -23,5 +23,9 @@
     <a href="http://localhost:8080/EJBTestWeb/mdb.do?queue=hello queue">http://localhost:8080/EJBTestWeb/mdb.do queue</a>
   </p>
 
+  <p>
+    <a href="http://localhost:8080/EJBTestWeb/multi.do">http://localhost:8080/EJBTestWeb/multi.do</a>
+  </p>
+
   </body>
 </html>

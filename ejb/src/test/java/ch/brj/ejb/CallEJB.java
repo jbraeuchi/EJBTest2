@@ -1,5 +1,6 @@
 package ch.brj.ejb;
 
+import ch.brj.ejb.multi.SLRemote;
 import org.junit.Test;
 
 import javax.naming.Context;
@@ -53,4 +54,18 @@ public class CallEJB {
 //        String name2 = "ejb:EJBTest/web/StatefulSession1Bean!ch.brj.ejb.StatefulSession1Bean?stateful";
 //        ctx.lookupLink(name2);
     }
+
+    @Test
+    public void test_SLRemote() throws Exception {
+        final Properties env = new Properties();
+        env.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+
+        String name1 = "ejb:EJBTest/ejb/SLMultiBean!ch.brj.ejb.multi.SLRemote";
+
+        Context ctx = new InitialContext(env);
+        SLRemote bean = (SLRemote) ctx.lookup(name1);
+        String message = bean.greeting("Client");
+        System.out.println(message);
+    }
+
 }

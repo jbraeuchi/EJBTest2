@@ -12,15 +12,14 @@ import java.util.Date;
 @Stateless
 public class SLTimer {
 
-    @Schedule(hour = "*", minute = "*", second = "10, 40")
+    @Schedule(hour = "*", minute = "*", second = "10, 40", persistent = false)
     void timer() {
         System.out.println("*** SLTimer fired " + new Date());
     }
 
     public String greeting(final String inName) {
         Date theCurrentTime = new Date();
-        String theMessage = "Hello " + inName + " from SLTimer " +
-                ". The time is now: " + theCurrentTime;
+        String theMessage = "Hello " + inName + " from SLTimer. The time is now: " + theCurrentTime;
         return theMessage;
     }
 }
