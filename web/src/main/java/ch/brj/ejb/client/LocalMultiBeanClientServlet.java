@@ -46,7 +46,7 @@ public class LocalMultiBeanClientServlet extends HttpServlet {
         theResponseWriter.println("Response from the SL2: " + theResponse2);
 
         String theResponse3 = mSLRemote.greeting("Anonymous");
-        theResponseWriter.println("Response from the SLRemote: " + theResponse2);
+        theResponseWriter.println("Response from the SLRemote: " + theResponse3);
 
 
     }
