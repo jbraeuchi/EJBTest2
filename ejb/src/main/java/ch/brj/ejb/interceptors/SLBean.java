@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.util.Date;
 
 /**
@@ -22,11 +23,12 @@ public class SLBean {
     @Interceptors({InterceptorA.class})
     public String greeting(String name) {
         try {
+            // read "greeting" using JNDI
             Context ctx = new InitialContext();
             String greeting2 = (String) ctx.lookup("java:comp/env/greeting");
-            System.out.println("*** Greeting 2: " + greeting2);
-        } catch (Exception e) {
-            throw new EJBException(e);
+            System.out.println("*** env greeting: " + greeting2);
+        } catch (NamingException e) {
+            System.out.println("*** cannot read env " + e.getMessage());
         }
 
         Date theCurrentTime = new Date();
