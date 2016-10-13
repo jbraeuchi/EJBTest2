@@ -1,10 +1,13 @@
 package ch.brj.ejb;
 
 import ch.brj.ejb.multi.SLRemote;
+import ch.brj.ejb.singleton.SingletonBean;
 import org.junit.Test;
 
+import javax.ejb.embeddable.EJBContainer;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.util.Properties;
 
 /**
@@ -68,4 +71,17 @@ public class CallEJB {
         System.out.println(message);
     }
 
+    @Test
+    public void test_EmbeddedContainer() throws NamingException {
+        String name1 = "ejb:EJBTest/ejb/SingletonBean";
+
+        Properties props = new Properties();
+        props.setProperty(EJBContainer.APP_NAME, "EJBTest");
+        EJBContainer ec = EJBContainer.createEJBContainer(props);
+
+        Context ctx = ec.getContext();
+        SingletonBean bean = (SingletonBean) ctx.lookup(name1);
+        String message = bean.greeting("Client");
+        System.out.println(message);
+    }
 }
