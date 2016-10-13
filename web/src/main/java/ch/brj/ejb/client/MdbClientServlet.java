@@ -56,7 +56,7 @@ public class MdbClientServlet extends HttpServlet {
                 out.println("Message: " + text);
 
                 sendWithContext(destination, text);
-//                sendWithConnectionFactory(destination, text);
+//               sendWithConnectionFactory(destination, text);
             }
         }
     }
@@ -68,7 +68,7 @@ public class MdbClientServlet extends HttpServlet {
     private void sendWithConnectionFactory(Destination dest, String msg) {
         try {
             Connection connection = connectionFactory.createConnection();
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
             TextMessage message = session.createTextMessage(msg);
             session.createProducer(dest).send(message);
         } catch (JMSException e) {
