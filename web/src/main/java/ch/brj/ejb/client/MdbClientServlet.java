@@ -15,8 +15,8 @@ import java.io.PrintWriter;
 /**
  * Add the following lines to <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
  * <p>
- * <jms-queue name="testQueue" entries="jms/queue/test java:jboss/exported/jms/queue/test"/>
- * <jms-topic name="testTopic" entries="jms/topic/test java:jboss/exported/jms/topic/test"/>
+ * <jms-queue name="testQueue" entries="java:/jms/queue/test"/>
+ * <jms-topic name="testTopic" entries="java:/jms/topic/test"/>
  */
 @WebServlet("/mdb.do")
 public class MdbClientServlet extends HttpServlet {
