@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 @WebServlet("/mdb.do")
 public class MdbClientServlet extends HttpServlet {
     @Inject
-    private JMSContext context;
+    private JMSContext context;  // JMS 2.0
 
     @Resource
     private ConnectionFactory connectionFactory;
