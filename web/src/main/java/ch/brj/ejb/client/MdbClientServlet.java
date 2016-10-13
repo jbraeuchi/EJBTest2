@@ -23,13 +23,14 @@ public class MdbClientServlet extends HttpServlet {
     @Inject
     private JMSContext context;
 
-    @Resource(mappedName = "java:/ConnectionFactory")
+    @Resource
     private ConnectionFactory connectionFactory;
 
-    @Resource(mappedName = "java:/jms/queue/test")
+    @Resource(name = "java:/jms/queue/test")
     private Queue queue;
 
-    @Resource(mappedName = "java:/jms/topic/test")
+//    @Resource(lookup = "java:/jms/topic/test")
+    @Resource(name = "java:/jms/topic/test")
     private Topic topic;
 
     @Override
