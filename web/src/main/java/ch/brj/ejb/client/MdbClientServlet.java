@@ -2,6 +2,7 @@ package ch.brj.ejb.client;
 
 
 import javax.annotation.Resource;
+import javax.ejb.EJBException;
 import javax.inject.Inject;
 import javax.jms.*;
 import javax.servlet.ServletException;
@@ -72,7 +73,7 @@ public class MdbClientServlet extends HttpServlet {
             TextMessage message = session.createTextMessage(msg);
             session.createProducer(dest).send(message);
         } catch (JMSException e) {
-            throw new RuntimeException(e);
+            throw new EJBException(e);
         }
     }
 }
