@@ -18,6 +18,8 @@ import java.io.PrintWriter;
  * <p>
  * <jms-queue name="testQueue" entries="java:/jms/queue/test"/>
  * <jms-topic name="testTopic" entries="java:/jms/topic/test"/>
+ * <p>
+ * JMSContext ist JMS 2.0
  */
 @WebServlet("/mdb.do")
 public class MdbClientServlet extends HttpServlet {
@@ -30,7 +32,7 @@ public class MdbClientServlet extends HttpServlet {
     @Resource(name = "java:/jms/queue/test")
     private Queue queue;
 
-//    @Resource(lookup = "java:/jms/topic/test")
+    //    @Resource(lookup = "java:/jms/topic/test")
     @Resource(name = "java:/jms/topic/test")
     private Topic topic;
 
@@ -56,17 +58,17 @@ public class MdbClientServlet extends HttpServlet {
                 String text = "This is the message '" + param + "' " + System.currentTimeMillis();
                 out.println("Message: " + text);
 
-                sendWithContext(destination, text);
-//               sendWithConnectionFactory(destination, text);
+                sendJMS11(destination, text);
+    //            sendJMS20(destination, text);
             }
         }
     }
 
-    private void sendWithContext(Destination dest, String msg) {
+    private void sendJMS20(Destination dest, String msg) {
         context.createProducer().send(dest, msg);
     }
 
-    private void sendWithConnectionFactory(Destination dest, String msg) {
+    private void sendJMS11(Destination dest, String msg) {
         try {
             Connection connection = connectionFactory.createConnection();
             Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
