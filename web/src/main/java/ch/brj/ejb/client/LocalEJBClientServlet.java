@@ -3,7 +3,6 @@ package ch.brj.ejb.client;
 
 import ch.brj.ejb.StatefulSession1Bean;
 import ch.brj.ejb.StatelessSessionRemote;
-import ch.brj.ejb.singleton.SingletonBean;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -35,9 +34,6 @@ public class LocalEJBClientServlet extends HttpServlet {
 
     private StatelessSessionRemote slBean;
 
-    @EJB
-    private SingletonBean mSingleton;
-
     @PostConstruct
     private void initialize() {
         try {
@@ -65,8 +61,6 @@ public class LocalEJBClientServlet extends HttpServlet {
         String theResponse3 = slBean.greeting("Anonymous 3");
         theResponseWriter.println("Response from looked up StatelessSessionRemoteBean EJB: " + theResponse3);
 
-        String theResponse4 = mSingleton.greeting("Anonymous 4");
-        theResponseWriter.println("Response from SingletonBean EJB: " + theResponse4);
 
 /* Process a list to examine parameter passing semantics. */
         List<String> theList = new ArrayList<String>();

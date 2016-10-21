@@ -17,6 +17,10 @@
   </p>
 
   <p>
+    <a href="http://localhost:8080/EJBTestWeb/singleton.do">http://localhost:8080/EJBTestWeb/singleton.do</a> User = test is ok, User = test2 fails
+  </p>
+
+  <p>
     <a href="http://localhost:8080/EJBTestWeb/mdb.do?topic=hello topic">http://localhost:8080/EJBTestWeb/mdb.do topic</a>
   </p>
   <p>
