@@ -2,6 +2,8 @@ package ch.brj.ejb.singleton;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.annotation.security.RunAs;
 import javax.ejb.EJBContext;
@@ -15,6 +17,7 @@ import java.security.Principal;
  */
 @Singleton
 @LocalBean
+@DeclareRoles({"testRole1", "testRole2"})
 public class SingletonBean {
     int counter;
 
@@ -26,13 +29,17 @@ public class SingletonBean {
         System.out.println("*** SingletonBean created.");
     }
 
-    @RolesAllowed("testRole2")
+    @PermitAll
     public String greeting(final String inName) {
-
+        String theMessage;
         Principal principal = ctx.getCallerPrincipal();
 
-        counter++;
-        String theMessage = "Hello " + inName + " from SingletonBean, invocations = " + counter + " Caller: " + principal.getName();
+        if (ctx.isCallerInRole("testRole2")) {
+            counter++;
+            theMessage = "Hello " + inName + " from SingletonBean, invocations = " + counter + " Caller: " + principal.getName();
+        } else {
+            theMessage = "Caller " + principal.getName() + " is not allowed";
+        }
         return theMessage;
     }
 }
