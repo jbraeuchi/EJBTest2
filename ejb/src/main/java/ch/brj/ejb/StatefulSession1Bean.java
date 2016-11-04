@@ -3,6 +3,7 @@ package ch.brj.ejb;
 import javax.annotation.PostConstruct;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
+import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import java.util.Date;
 import java.util.List;
@@ -31,7 +32,7 @@ public class StatefulSession1Bean {
      */
     public String greeting(final String inName) {
         Date theCurrentTime = new Date();
-        String theMessage = "Hello " + inName + ", I am stateful session bean " +
+        String theMessage = "Hello " + inName + ", I am StatefulSession1Bean " +
                 mInstanceNumber + ". The time is now: " + theCurrentTime;
         return theMessage;
     }
@@ -57,5 +58,10 @@ public class StatefulSession1Bean {
         * this modification to the list is local only.
         */
         inList.add("String added in EJB");
+    }
+
+    @Remove
+    public void remove() {
+        System.out.println("StatefulSession1Bean removed");
     }
 }
