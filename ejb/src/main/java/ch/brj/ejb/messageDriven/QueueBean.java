@@ -22,7 +22,9 @@ public class QueueBean implements MessageListener {
             if (rcvMessage instanceof TextMessage) {
                 msg = (TextMessage) rcvMessage;
                 System.out.println("*** Received Message from queue: >" + msg.getText() + "<");
-                // throw new IllegalArgumentException(msg.getText());
+                if (msg.getText().contains("error")) {
+                    throw new IllegalArgumentException(msg.getText());
+                }
             }
         } catch (JMSException e) {
             throw new RuntimeException(e);
