@@ -29,6 +29,12 @@
   <p>
     <a href="http://localhost:8080/EJBTestWeb/mdb.do?queue=error">http://localhost:8080/EJBTestWeb/mdb.do queue error</a>
   </p>
+  <p>
+    <a href="http://localhost:8080/EJBTestWeb/jms.do?queue=java:/jms/queue/test">http://localhost:8080/EJBTestWeb/jms.do java:/jms/queue/test</a>
+  </p>
+  <p>
+    <a href="http://localhost:8080/EJBTestWeb/jms.do?queue=java:/jms/queue/DLQ">http://localhost:8080/EJBTestWeb/jms.do java:/jms/queue/DLQ</a>
+  </p>
 
   <p>
     <a href="http://localhost:8080/EJBTestWeb/multi.do">http://localhost:8080/EJBTestWeb/multi.do</a>
