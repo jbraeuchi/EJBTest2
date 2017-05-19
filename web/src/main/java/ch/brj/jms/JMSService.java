@@ -53,13 +53,13 @@ public class JMSService {
 
             String selector = String.format("JMSMessageID = '%s'", msgId);
             JMSConsumer consumer = context.createConsumer(fromQueue, selector);
-            javax.jms.Message message = consumer.receive();
+            javax.jms.Message message = consumer.receiveNoWait();
 
-            JMSProducer producer = context.createProducer();
-            producer.send(toQueue, message);
-
+            if (message != null) {
+                JMSProducer producer = context.createProducer();
+                producer.send(toQueue, message);
+            }
             consumer.close();
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

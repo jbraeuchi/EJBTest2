@@ -39,10 +39,11 @@ public class JMSBrowserServlet extends HttpServlet {
                 queueName = inRequest.getParameterMap().get("queue")[0];
                 out.println("Queue=" + queueName);
 
-                List<Message> messages = jmsService.browseQueue(queueName, "myInteger > 0");
+                List<Message> messages = jmsService.browseQueue(queueName, null);
                 out.println(messages);
 
                 jmsService.moveMessage(messages.get(0).getId(), queueName, "java:/jms/queue/test");
+                out.println("MOVED " + messages.get(0).getId());
             }
         }
     }
