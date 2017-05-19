@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 /**
  * Created by jakob on 19.05.2017.
@@ -71,7 +72,10 @@ public class JMSService {
             Queue fromQueue = (Queue) new InitialContext().lookup(fromName);
             Queue toQueue = (Queue) new InitialContext().lookup(toName);
 
-            String selector = createInSelector(msgIds);
+            //           String selector = createInSelector(msgIds);
+            String selector = msgIds.stream()
+                    .collect(Collectors.joining("','", "JMSMessageID in ('", "')"));
+
             JMSConsumer consumer = context.createConsumer(fromQueue, selector);
             JMSProducer producer = context.createProducer();
 
