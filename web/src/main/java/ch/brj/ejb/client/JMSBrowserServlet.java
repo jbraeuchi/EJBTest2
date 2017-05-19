@@ -1,12 +1,10 @@
 package ch.brj.ejb.client;
 
 
-import javax.annotation.Resource;
-import javax.ejb.EJBException;
+import ch.brj.jms.JMSService;
+import ch.brj.jms.Message;
+
 import javax.inject.Inject;
-import javax.jms.*;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
+import java.util.List;
 
 /**
  * Add the following lines to <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
@@ -27,10 +25,7 @@ import java.util.Enumeration;
 @WebServlet("/jms.do")
 public class JMSBrowserServlet extends HttpServlet {
     @Inject
-    private JMSContext context;  // JMS 2.0
-
-    @Resource
-    private ConnectionFactory connectionFactory;
+    JMSService jmsService;
 
     @Override
     protected void doGet(HttpServletRequest inRequest,
@@ -38,45 +33,17 @@ public class JMSBrowserServlet extends HttpServlet {
 
         try (PrintWriter out = inResponse.getWriter()) {
             out.println("Browsing JMS");
-            Queue queue = null;
-            String param = null;
+            String queueName = null;
 
             if (inRequest.getParameterMap().keySet().contains("queue")) {
-                param = inRequest.getParameterMap().get("queue")[0];
-                out.println("Queue=" + param);
-                try {
-                    queue = (Queue) new InitialContext().lookup(param);
-                } catch (NamingException e) {
-                    throw new EJBException(e);
-                }
+                queueName = inRequest.getParameterMap().get("queue")[0];
+                out.println("Queue=" + queueName);
+
+                List<Message> messages = jmsService.browseQueue(queueName, "myInteger > 0");
+                out.println(messages);
+
+                jmsService.moveMessage("ignore", queueName, "java:/jms/queue/test");
             }
-
-            String messages = browse(queue);
-            out.println(messages);
-        }
-    }
-
-    private String browse(Queue queue) {
-        try {
-            Connection connection = connectionFactory.createConnection();
-            Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
-            QueueBrowser browser = session.createBrowser(queue);
-
-            StringBuilder sb = new StringBuilder();
-            Enumeration messageEnum = browser.getEnumeration();
-            while (messageEnum.hasMoreElements()) {
-                TextMessage message = (TextMessage) messageEnum.nextElement();
-
-                sb.append("\nID=");
-                sb.append(message.getJMSMessageID());
-                sb.append(" Text=");
-                sb.append(message.getText());
-            }
-
-            browser.close();
-            return sb.toString();
-        } catch (JMSException e) {
-            throw new EJBException(e);
         }
     }
 }
