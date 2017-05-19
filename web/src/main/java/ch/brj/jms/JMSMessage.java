@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by jakob on 19.05.2017.
  */
-public class Message {
+public class JMSMessage {
     private String id;
     private String text;
 
@@ -34,7 +34,7 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
+        return "JMSMessage{" +
                 "id='" + id + '\'' +
                 ", text='" + text + '\'' +
                 ", properties=" + properties +

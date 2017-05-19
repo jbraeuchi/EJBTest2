@@ -2,7 +2,7 @@ package ch.brj.ejb.client;
 
 
 import ch.brj.jms.JMSService;
-import ch.brj.jms.Message;
+import ch.brj.jms.JMSMessage;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -39,7 +39,7 @@ public class JMSBrowserServlet extends HttpServlet {
                 queueName = inRequest.getParameterMap().get("queue")[0];
                 out.println("Queue=" + queueName);
 
-                List<Message> messages = jmsService.browseQueue(queueName, null);
+                List<JMSMessage> messages = jmsService.browseQueue(queueName, null);
                 out.println(messages);
 
                 jmsService.moveMessage(messages.get(0).getId(), queueName, "java:/jms/queue/test");

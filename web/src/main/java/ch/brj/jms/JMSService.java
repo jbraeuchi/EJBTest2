@@ -14,18 +14,18 @@ public class JMSService {
     @Inject
     private JMSContext context;  // JMS 2.0
 
-    public List<Message> browseQueue(String queueName, String selector) {
+    public List<JMSMessage> browseQueue(String queueName, String selector) {
         try {
             Queue queue = (Queue) new InitialContext().lookup(queueName);
 
-            List<Message> result = new ArrayList<>();
+            List<JMSMessage> result = new ArrayList<>();
             QueueBrowser browser = context.createBrowser(queue, selector);
 
             Enumeration messageEnum = browser.getEnumeration();
             while (messageEnum.hasMoreElements()) {
                 TextMessage tm = (TextMessage) messageEnum.nextElement();
 
-                Message msg = new Message();
+                JMSMessage msg = new JMSMessage();
                 msg.setId(tm.getJMSMessageID());
                 msg.setText(tm.getText());
 
