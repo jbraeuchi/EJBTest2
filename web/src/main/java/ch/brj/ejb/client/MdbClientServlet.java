@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 
 /**
  * Add the following lines to <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
@@ -73,6 +74,8 @@ public class MdbClientServlet extends HttpServlet {
             Connection connection = connectionFactory.createConnection();
             Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
             TextMessage message = session.createTextMessage(msg);
+            message.setIntProperty("myInteger", 42);
+            message.setObjectProperty("myObject", new Double("142.45"));
             session.createProducer(dest).send(message);
         } catch (JMSException e) {
             throw new EJBException(e);

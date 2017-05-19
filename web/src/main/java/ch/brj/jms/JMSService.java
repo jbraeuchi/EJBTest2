@@ -51,7 +51,7 @@ public class JMSService {
             Queue fromQueue = (Queue) new InitialContext().lookup(fromName);
             Queue toQueue = (Queue) new InitialContext().lookup(toName);
 
-            String selector = "myInteger > 0";
+            String selector = String.format("JMSMessageID = '%s'", msgId);
             JMSConsumer consumer = context.createConsumer(fromQueue, selector);
             javax.jms.Message message = consumer.receive();
 

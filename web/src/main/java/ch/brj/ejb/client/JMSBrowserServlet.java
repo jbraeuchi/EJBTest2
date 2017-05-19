@@ -42,7 +42,7 @@ public class JMSBrowserServlet extends HttpServlet {
                 List<Message> messages = jmsService.browseQueue(queueName, "myInteger > 0");
                 out.println(messages);
 
-                jmsService.moveMessage("ignore", queueName, "java:/jms/queue/test");
+                jmsService.moveMessage(messages.get(0).getId(), queueName, "java:/jms/queue/test");
             }
         }
     }
