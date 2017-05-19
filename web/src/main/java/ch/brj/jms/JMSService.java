@@ -6,6 +6,7 @@ import javax.naming.InitialContext;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.StringJoiner;
 
 /**
  * Created by jakob on 19.05.2017.
@@ -53,7 +54,7 @@ public class JMSService {
 
             String selector = String.format("JMSMessageID = '%s'", msgId);
             JMSConsumer consumer = context.createConsumer(fromQueue, selector);
-            javax.jms.Message message = consumer.receiveNoWait();
+            Message message = consumer.receiveNoWait();
 
             if (message != null) {
                 JMSProducer producer = context.createProducer();
@@ -63,5 +64,31 @@ public class JMSService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void moveMessages(List<String> msgIds, String fromName, String toName) {
+        try {
+            Queue fromQueue = (Queue) new InitialContext().lookup(fromName);
+            Queue toQueue = (Queue) new InitialContext().lookup(toName);
+
+            String selector = createInSelector(msgIds);
+            JMSConsumer consumer = context.createConsumer(fromQueue, selector);
+            JMSProducer producer = context.createProducer();
+
+            Message message = consumer.receiveNoWait();
+            while (message != null) {
+                producer.send(toQueue, message);
+                message = consumer.receiveNoWait();
+            }
+            consumer.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String createInSelector(List<String> msgIds) {
+        StringJoiner sj = new StringJoiner("','", "JMSMessageID in ('", "')");
+        msgIds.forEach(i -> sj.add(i));
+        return sj.toString();
     }
 }

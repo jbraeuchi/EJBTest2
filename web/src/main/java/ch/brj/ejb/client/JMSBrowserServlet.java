@@ -1,8 +1,8 @@
 package ch.brj.ejb.client;
 
 
-import ch.brj.jms.JMSService;
 import ch.brj.jms.JMSMessage;
+import ch.brj.jms.JMSService;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,7 +43,8 @@ public class JMSBrowserServlet extends HttpServlet {
                 List<JMSMessage> messages = jmsService.browseQueue(queueName, null);
                 out.println(messages);
 
-                jmsService.moveMessage(messages.get(0).getId(), queueName, "java:/jms/queue/test");
+//                jmsService.moveMessage(messages.get(0).getId(), queueName, "java:/jms/queue/test");
+                jmsService.moveMessages(Collections.singletonList(messages.get(0).getId()), queueName, "java:/jms/queue/test");
                 out.println("MOVED " + messages.get(0).getId());
             }
         }
