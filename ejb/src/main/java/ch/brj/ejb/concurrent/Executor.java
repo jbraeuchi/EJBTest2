@@ -19,9 +19,11 @@ public class Executor {
         try {
             List<Callable<Integer>> retrieverTasks = new ArrayList<Callable<Integer>>();
 
-            retrieverTasks.add(new FastRetriever());
-            retrieverTasks.add(new SlowRetriever());
+            retrieverTasks.add(new Retriever("Fast", 10));
+            retrieverTasks.add(new Retriever("Slow 1", 4000));
+            retrieverTasks.add(new Retriever("Slow 2", 2000));
 
+            long t1 = System.currentTimeMillis();
             // Submit the tasks to the thread pool and wait for them
             // to complete (successfully or otherwise).
             List<Future<Integer>> taskResults = mes.invokeAll(retrieverTasks);
@@ -32,10 +34,11 @@ public class Executor {
                 try {
                     results.add(taskResult.get());
                 } catch (ExecutionException e) {
-                    Throwable cause = e.getCause();
-                    // Handle the AccountRetrieverError.
+                    System.out.println(e);
                 }
             }
+            long t2 = System.currentTimeMillis();
+            System.out.println("Duration=" + (t2 - t1));
 
             return results;
 
@@ -46,24 +49,24 @@ public class Executor {
         return null;
     }
 
-    public static class FastRetriever implements Callable<Integer> {
-        public Integer call() {
-            Integer result = 42;
-            System.out.println("FastRetriever");
-            return result;
+    public static class Retriever implements Callable<Integer> {
+        private String name;
+        private int sleep;
+
+        public Retriever(String name, int sleep) {
+            this.name = name;
+            this.sleep = sleep;
         }
-    }
 
-
-    public static class SlowRetriever implements Callable<Integer> {
         public Integer call() {
-            Integer result = 42 * 42 * 42;
-            System.out.println("SlowRetriever");
+            Integer result = 42 * sleep;
+            System.out.println(name + " start");
             try {
-                Thread.sleep(2000);
+                Thread.sleep(sleep);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            System.out.println(name + " end");
             return result;
         }
     }
