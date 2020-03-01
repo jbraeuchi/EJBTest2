@@ -48,14 +48,23 @@ public class Executor {
 
     public static class FastRetriever implements Callable<Integer> {
         public Integer call() {
-            return 42;
+            Integer result = 42;
+            System.out.println("FastRetriever");
+            return result;
         }
     }
 
 
     public static class SlowRetriever implements Callable<Integer> {
         public Integer call() {
-            return 42 * 42;
+            Integer result = 42 * 42 * 42;
+            System.out.println("SlowRetriever");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return result;
         }
     }
 }
