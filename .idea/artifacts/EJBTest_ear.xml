@@ -9,6 +9,9 @@
       <element id="directory" name="web.war">
         <element id="artifact" artifact-name="EJBTest:web" />
       </element>
+      <element id="directory" name="jmsbrowser.war">
+        <element id="artifact" artifact-name="jmsbrowser:war exploded" />
+      </element>
     </root>
   </artifact>
 </component>

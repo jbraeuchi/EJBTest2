@@ -18,9 +18,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
     </content>
-    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="JBoss 10.0.10.Final" level="application_server_libraries" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit4">
         <CLASSES>
@@ -32,5 +31,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="jboss-client" level="project" />
+    <orderEntry type="library" name="EJB lib" level="project" />
   </component>
 </module>
