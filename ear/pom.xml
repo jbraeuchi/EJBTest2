@@ -31,7 +31,7 @@
 				<configuration>
 					<!--<unpackTypes>war,ejb</unpackTypes>-->
 					<!--<finalName>ekv4ear</finalName>-->
-					<workDirectory>target/ekv4exploded.ear</workDirectory>
+					<workDirectory>target/exploded.ear</workDirectory>
 					<modules>
 						<ejbModule>
 							<groupId>ch.brj</groupId>
