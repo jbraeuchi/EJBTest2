@@ -75,7 +75,7 @@ public class MdbClientServlet extends HttpServlet {
             Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
             TextMessage message = session.createTextMessage(msg);
             message.setIntProperty("myInteger", 42);
-            message.setObjectProperty("myObject", new Double("142.45"));
+            message.setObjectProperty("myObject", Double.valueOf("142.45"));
             session.createProducer(dest).send(message);
         } catch (JMSException e) {
             throw new EJBException(e);

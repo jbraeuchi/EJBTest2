@@ -2,8 +2,8 @@ package ch.brj.ejb;
 
 import ch.brj.ejb.multi.SLRemote;
 import ch.brj.ejb.singleton.SingletonBean;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.Context;
@@ -73,7 +73,7 @@ public class CallEJB {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void test_EmbeddedContainer() throws NamingException {
         String name1 = "ejb:EJBTest/ejb/SingletonBean";
 
