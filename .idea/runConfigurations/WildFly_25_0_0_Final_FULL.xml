@@ -2,7 +2,7 @@
   <configuration default="false" name="WildFly 25.0.0.Final FULL" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss/WildFly 25.0.0.Final" ALTERNATIVE_JRE_ENABLED="false">
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
-      <file path="$PROJECT_DIR$/ear/target/ear-0.0.1-SNAPSHOT.ear">
+      <file path="$PROJECT_DIR$/ear/target/exploded.ear">
         <settings />
       </file>
     </deployment>
@@ -54,7 +54,7 @@
         <option name="USE_DEFAULT" value="false" />
         <option name="SCRIPT" value="C:/Entwicklung/wildfly-25.0.0.Final/bin/standalone.bat" />
         <option name="VM_PARAMETERS" value="" />
-        <option name="PROGRAM_PARAMETERS" value=" -c standalone-full.xml" />
+        <option name="PROGRAM_PARAMETERS" value="-c standalone-full.xml" />
       </STARTUP>
       <SHUTDOWN>
         <option name="USE_DEFAULT" value="true" />
